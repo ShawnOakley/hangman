@@ -1,3 +1,7 @@
+require './Player'
+require './ComputerPlayer'
+require './HumanPlayer'
+
 class Hangman
 
   attr_accessor :dictionary, :guess_player, :answer_player
