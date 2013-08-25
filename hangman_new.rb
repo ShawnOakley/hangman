@@ -10,7 +10,7 @@ class Hangman
     self.dictionary = File.read('dictionary.txt').split(' ')
     self.guess_player = nil
     self.answer_player = nil
-    self.board = nil
+    self.board = []
   end
 
   # Instantiates ComputerPlayer as guessing player, HumanPlayer as answering player
@@ -54,6 +54,13 @@ class Hangman
   end
 
   def play_game
+    target_length = @answer_player.generate_target
+    target_length.times do
+      @board << '_'
+    end
+
+    puts @board
+  end
 
 
   end

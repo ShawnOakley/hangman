@@ -15,7 +15,16 @@ class HumanPlayer < Player
     # sets to target_word variable
     # returns length of word
 
+    puts "Please think of a target word."
+    puts "When ready, please enter the length of the target word:"
+    length = gets.chomp
 
+    if /\D/.match? length
+      puts "Please only enter an integer length for the target word."
+      generate_target
+    else
+      length.to_i
+    end
   end
 
   # The following methods are used when the human IS designated as player

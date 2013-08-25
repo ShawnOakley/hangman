@@ -14,7 +14,8 @@ class ComputerPlayer < Player
     # generates target by randomly selecting word from dictionary
     # sets to target_word variable
     # returns length of word
-
+    self.target_word = dictionary[](0...dictionary.size).to_a.sample]
+    self.target_word.size
 
 
 
