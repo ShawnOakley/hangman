@@ -12,16 +12,23 @@ class Hangman
     self.answer_player = nil
   end
 
-  def self.create_comp_game()
-    self.guess_player = ComputerPlayer.new(self, self.dictionary)
+  def create_comp_game()
+    self.guess_player = ComputerPlayer.new(self, @dictionary)
     self.answer_player = HumanPlayer.new(self)
+    set_opponents(guess_player, answer_player)
     p self.answer_player
     p self.human_player
   end
 
-  def self.create_human_game()
+  def set_opponents(player1, player2)
+    player1.set_opponent(player2)
+    player2.set_opponent(player1)
+  end
+
+  def create_human_game()
     self.guess_player = HumanPlayer.new(self)
-    self.answer_player = ComputerPlayer.new(self, self.dictionary)
+    self.answer_player = ComputerPlayer.new(self, @dictionary)
+    set_opponents(guess_player, answer_player)
     p self.answer_player
     p self.human_player
   end
@@ -30,10 +37,10 @@ class Hangman
     puts "Please choose who will guess (Computer or Human):"
     guessing_player = gets.chomp
     if /comp|computer/i.match(guessing_player)
-      Hangman.create_comp_game
+      create_comp_game
 
     elsif /human|h|me/i.match(guessing_player)
-      Hangman.create_human_game
+      create_human_game
     else
       puts "Invalid input.  Please enter either 'Human' or 'Computer'."
       choose_game

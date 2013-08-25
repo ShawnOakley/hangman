@@ -1,6 +1,6 @@
 class Player
 
-  attr_accesspr :opponent, :game
+  attr_accessor :opponent, :game
 
   def initialize()
     self.opponent = nil
