@@ -20,7 +20,7 @@ class ComputerPlayer < Player
     self.target_word.size
   end
 
-  def validate_guess
+  def validate_guess(guess)
 
   end
 

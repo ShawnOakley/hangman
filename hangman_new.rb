@@ -76,9 +76,10 @@ class Hangman
   def play_game
     generate_board(@answer_player.generate_target)
 
-    while @board.contains? ('_')
+    while @board.include? ('_')
       puts "The following letters are available:"
-      print @not_guessed
+      print @not_guessed.join(' ')
+      puts
       guess = @guessingPlayer.make_guess.downcase
       not_guessed.delete(guess)
       update_board(guess)

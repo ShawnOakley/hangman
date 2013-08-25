@@ -28,8 +28,29 @@ class HumanPlayer < Player
     end
   end
 
-  def validate_guess
-    guess = []
+  def validate_guess(guess)
+    puts "The computer guessed #{guess}."
+    puts "Does your word contain #{}?  Please enter yes or no:"
+    response = gets.chomp
+    if /yes/i.match?
+      puts "Please enter what space or spaces where the letter is located. Separate the spaces with a comma (e.g., '1,2,3,4'):"
+      indices = gets.chomp
+      if indices.split(',').any? {|num| /\D/i.match? num}
+        puts "Invalid input.  Please re-enter input."
+        validate_guess(guess)
+      elsif indices.split(',').any? {|num| num.to_i > @board.size}
+        puts "You entered a number that is longer than the target word.  Please re-enter input."
+      else
+        return indices.split(',').map {|num| num.to_i - 1}
+      end
+    elsif /no/i.match?
+      return []
+    else
+      puts "Invalid input.  Please re-enter input."
+      validate_guess(guess)
+    end
+  end
+
 
   end
 
