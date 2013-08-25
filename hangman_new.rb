@@ -4,13 +4,14 @@ require './HumanPlayer'
 
 class Hangman
 
-  attr_accessor :dictionary, :guess_player, :answer_player, :board
+  attr_accessor :dictionary, :guess_player, :answer_player, :board, :not_guessed
 
   def initialize
     self.dictionary = File.read('dictionary.txt').split(' ')
     self.guess_player = nil
     self.answer_player = nil
     self.board = []
+    self.not_guessed = ("a".."z").to_a
   end
 
   # Instantiates ComputerPlayer as guessing player, HumanPlayer as answering player
@@ -60,9 +61,13 @@ class Hangman
   def update_board(guess)
     # Requests index values from answering player.
     # Sets values of indices to guess value
-    indices = @answer_player.validate_guess(guess)
-    indices.each do |index|
-      @board[index] = guess
+    if guess != nil
+      indices = @answer_player.validate_guess(guess)
+      indices.each do |index|
+        @board[index] = guess
+      end
+    else
+      puts "The word does not contain your guess.  Please try again."
     end
 
     print @board.join(' ')
@@ -72,7 +77,10 @@ class Hangman
     generate_board(@answer_player.generate_target)
 
     while @board.contains? ('_')
-      guess = @guessingPlayer.make_guess
+      puts "The following letters are available:"
+      print @not_guessed
+      guess = @guessingPlayer.make_guess.downcase
+      not_guessed.delete(guess)
       update_board(guess)
     end
 

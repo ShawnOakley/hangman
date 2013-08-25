@@ -29,6 +29,7 @@ class HumanPlayer < Player
   end
 
   def validate_guess
+    guess = []
 
   end
 
