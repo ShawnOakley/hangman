@@ -59,12 +59,8 @@ class Hangman
       @board << '_'
     end
 
-    puts @board
+    print @board.join(' ')
   end
-
-
-  end
-
 
 end
 

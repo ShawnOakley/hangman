@@ -9,6 +9,7 @@ class HumanPlayer < Player
     self.target_word = nil
   end
 
+  # The following methods are used when the human is designated as answering player
 
   def generate_target
     # generates target by asking player to think of word
@@ -19,7 +20,7 @@ class HumanPlayer < Player
     puts "When ready, please enter the length of the target word:"
     length = gets.chomp
 
-    if /\D/.match? length
+    if /\D/.match length
       puts "Please only enter an integer length for the target word."
       generate_target
     else
@@ -27,10 +28,9 @@ class HumanPlayer < Player
     end
   end
 
-  # The following methods are used when the human IS designated as player
+  # The following methods are used when the human is designated as guessing player
 
 
-  # The following methods are used when the human IS
-  # NOT designated as player
+
 
 end
