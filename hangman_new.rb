@@ -1,3 +1,7 @@
+require './player'
+require './ComputerPlayer'
+require './HumanPlayer'
+
 class Hangman
 
   attr_accessor :dictionary, :guess_player, :answer_player
@@ -9,15 +13,15 @@ class Hangman
   end
 
   def self.create_comp_game()
-    self.guess_player = ComputerPlayer.new
-    self.answer_player = HumanPlayer.new
+    self.guess_player = ComputerPlayer.new(self, self.dictionary)
+    self.answer_player = HumanPlayer.new(self)
     p self.answer_player
     p self.human_player
   end
 
   def self.create_human_game()
-    self.guess_player = HumanPlayer.new
-    self.answer_player = ComputerPlayer.new
+    self.guess_player = HumanPlayer.new(self)
+    self.answer_player = ComputerPlayer.new(self, self.dictionary)
     p self.answer_player
     p self.human_player
   end
