@@ -28,9 +28,15 @@ class HumanPlayer < Player
     end
   end
 
+  def validate_guess
+
+  end
+
   # The following methods are used when the human is designated as guessing player
 
+  def make_guess
 
+  end
 
 
 end

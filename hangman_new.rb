@@ -53,13 +53,31 @@ class Hangman
     play_game
   end
 
-  def play_game
-    target_length = @answer_player.generate_target
-    target_length.times do
-      @board << '_'
+  def generate_board(length)
+    length.times { @board << '_' }
+  end
+
+  def update_board(guess)
+    # Requests index values from answering player.
+    # Sets values of indices to guess value
+    indices = @answer_player.validate_guess(guess)
+    indices.each do |index|
+      @board[index] = guess
     end
 
     print @board.join(' ')
+  end
+
+  def play_game
+    generate_board(@answer_player.generate_target)
+
+    while @board.contains? ('_')
+      guess = @guessingPlayer.make_guess
+      update_board(guess)
+    end
+
+    puts "The guessing player has solved the word."
+
   end
 
 end
