@@ -17,7 +17,7 @@ class Hangman
   # Instantiates ComputerPlayer as guessing player, HumanPlayer as answering player
 
   def create_comp_game
-    self.guess_player = ComputerPlayer.new(self, @dictionary)
+    self.guess_player = ComputerPlayer.new(@dictionary, self)
     self.answer_player = HumanPlayer.new(self)
     set_opponents(guess_player, answer_player)
   end
@@ -26,7 +26,7 @@ class Hangman
 
   def create_human_game
     self.guess_player = HumanPlayer.new(self)
-    self.answer_player = ComputerPlayer.new(self, @dictionary)
+    self.answer_player = ComputerPlayer.new(@dictionary, self)
     set_opponents(guess_player, answer_player)
   end
 
@@ -42,11 +42,13 @@ class Hangman
   def choose_game
     puts "Please choose who will guess (Computer or Human):"
     guessing_player = gets.chomp
+
     if /comp|computer/i.match(guessing_player)
       create_comp_game
 
     elsif /human|h|me/i.match(guessing_player)
       create_human_game
+
     else
       puts "Invalid input.  Please enter either 'Human' or 'Computer'."
       choose_game
@@ -66,6 +68,7 @@ class Hangman
       indices.each do |index|
         @board[index] = guess
       end
+      puts
     else
       puts "The word does not contain your guess.  Please try again."
     end
@@ -75,14 +78,13 @@ class Hangman
 
   def play_game
     generate_board(@answer_player.generate_target)
+    @guess_player.notify_opponent_of_target(@board.size)
 
     while @board.include? ('_')
-      puts "The following letters are available:"
-      print @not_guessed.join(' ')
       puts
-      guess = @guessingPlayer.make_guess.downcase
-      not_guessed.delete(guess)
+      guess = @guess_player.make_guess(@not_guessed).downcase
       update_board(guess)
+      not_guessed.delete(guess)
     end
 
     puts "The guessing player has solved the word."
@@ -94,5 +96,6 @@ end
 if __FILE__ == $0
   hangman = Hangman.new
   hangman.choose_game
+
 
 end
