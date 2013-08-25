@@ -25,20 +25,22 @@ class ComputerPlayer < Player
   end
 
   def notify_opponent_of_target(size)
-    generate_freq_hash(size)
+    @freq_hash = generate_freq_hash(size)
   end
 
   def generate_freq_hash(word_length)
     eligible_words = []
-    dictionary.each do |word|
+    @dictionary.each do |word|
       if word.size == word_length
         eligible_words << word
       end
     end
-    eligible_words.map { |word| split('') }.flatten
+    word_arr = []
+    eligible_words.each { |word| word_arr << word.split('').flatten }
+    word_arr = word_arr.flatten
     hash_key = ('a'..'z').to_a
     freq_hash = {}
-    eligibile_words.each do |letter|
+    word_arr.each do |letter|
       if freq_hash[letter] == nil
         freq_hash[letter] = 0
       end
@@ -47,18 +49,23 @@ class ComputerPlayer < Player
     freq_hash
   end
 
-
     # The following methods are used when the human is designated as guessing player
-
-
-
-
 
   def make_guess(not_guessed)
     puts "The following letters are available:"
     print not_guessed.join(' ')
     puts
-    return not_guessed.sample
+
+    p freq_hash
+    max = nil
+    not_guessed.each do |key|
+      if max == nil
+        max = key
+      elsif freq_hash[max] < freq_hash[key]
+        max = key
+      end
+    end
+    return max
   end
 
 

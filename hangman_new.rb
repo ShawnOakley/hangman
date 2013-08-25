@@ -37,9 +37,12 @@ class Hangman
     player2.set_opponent(player1)
   end
 
-  #UI for selecting which type of game to play.  Should be called on initialization
+
 
   def choose_game
+
+    #UI for selecting which type of game to play.  Called on initialization
+
     puts "Please choose who will guess (Computer or Human):"
     guessing_player = gets.chomp
 
@@ -77,6 +80,9 @@ class Hangman
   end
 
   def play_game
+    # Queries guess player for guess.
+    # Validates guess with other player.
+    # Updates board upon confirming that guess was valid.
     generate_board(@answer_player.generate_target)
     @guess_player.notify_opponent_of_target(@board.size)
 
