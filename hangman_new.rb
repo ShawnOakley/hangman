@@ -4,17 +4,18 @@ require './HumanPlayer'
 
 class Hangman
 
-  attr_accessor :dictionary, :guess_player, :answer_player
+  attr_accessor :dictionary, :guess_player, :answer_player, :board
 
   def initialize
     self.dictionary = File.read('dictionary.txt').split(' ')
     self.guess_player = nil
     self.answer_player = nil
+    self.board = nil
   end
 
   # Instantiates ComputerPlayer as guessing player, HumanPlayer as answering player
 
-  def create_comp_game()
+  def create_comp_game
     self.guess_player = ComputerPlayer.new(self, @dictionary)
     self.answer_player = HumanPlayer.new(self)
     set_opponents(guess_player, answer_player)
@@ -22,7 +23,7 @@ class Hangman
 
   # Instantiates HumanPlayer as guessing player, ComputerPlayer as answering player
 
-  def create_human_game()
+  def create_human_game
     self.guess_player = HumanPlayer.new(self)
     self.answer_player = ComputerPlayer.new(self, @dictionary)
     set_opponents(guess_player, answer_player)
@@ -37,7 +38,7 @@ class Hangman
 
   #UI for selecting which type of game to play.  Should be called on initialization
 
-  def choose_game()
+  def choose_game
     puts "Please choose who will guess (Computer or Human):"
     guessing_player = gets.chomp
     if /comp|computer/i.match(guessing_player)
@@ -48,8 +49,13 @@ class Hangman
     else
       puts "Invalid input.  Please enter either 'Human' or 'Computer'."
       choose_game
-
     end
+    play_game
+  end
+
+  def play_game
+
+
   end
 
 
