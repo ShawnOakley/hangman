@@ -12,26 +12,30 @@ class Hangman
     self.answer_player = nil
   end
 
+  # Instantiates ComputerPlayer as guessing player, HumanPlayer as answering player
+
   def create_comp_game()
     self.guess_player = ComputerPlayer.new(self, @dictionary)
     self.answer_player = HumanPlayer.new(self)
     set_opponents(guess_player, answer_player)
-    p self.answer_player
-    p self.human_player
   end
+
+  # Instantiates HumanPlayer as guessing player, ComputerPlayer as answering player
+
+  def create_human_game()
+    self.guess_player = HumanPlayer.new(self)
+    self.answer_player = ComputerPlayer.new(self, @dictionary)
+    set_opponents(guess_player, answer_player)
+  end
+
+  # Introduces opponents to one another
 
   def set_opponents(player1, player2)
     player1.set_opponent(player2)
     player2.set_opponent(player1)
   end
 
-  def create_human_game()
-    self.guess_player = HumanPlayer.new(self)
-    self.answer_player = ComputerPlayer.new(self, @dictionary)
-    set_opponents(guess_player, answer_player)
-    p self.answer_player
-    p self.human_player
-  end
+  #UI for selecting which type of game to play.  Should be called on initialization
 
   def choose_game()
     puts "Please choose who will guess (Computer or Human):"
@@ -53,7 +57,6 @@ end
 
 if __FILE__ == $0
   hangman = Hangman.new
-  p hangman.dictionary
   hangman.choose_game
 
 end
