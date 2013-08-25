@@ -11,22 +11,29 @@ class Hangman
   def self.create_comp_game()
     self.guess_player = ComputerPlayer.new
     self.answer_player = HumanPlayer.new
+    p self.answer_player
+    p self.human_player
   end
 
   def self.create_human_game()
     self.guess_player = HumanPlayer.new
     self.answer_player = ComputerPlayer.new
+    p self.answer_player
+    p self.human_player
   end
 
   def choose_game()
     puts "Please choose who will guess (Computer or Human):"
+    guessing_player = gets.chomp
     if /comp|computer/i.match(guessing_player)
-      self.create_comp_game
+      Hangman.create_comp_game
+
     elsif /human|h|me/i.match(guessing_player)
-      self.create_human_game
+      Hangman.create_human_game
     else
       puts "Invalid input.  Please enter either 'Human' or 'Computer'."
       choose_game
+
     end
   end
 
@@ -36,4 +43,6 @@ end
 if __FILE__ == $0
   hangman = Hangman.new
   p hangman.dictionary
+  hangman.choose_game
+
 end
