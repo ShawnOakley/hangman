@@ -92,7 +92,7 @@ class Hangman
       update_board(guess)
       not_guessed.delete(guess)
     end
-
+    puts
     puts "The guessing player has solved the word."
 
   end

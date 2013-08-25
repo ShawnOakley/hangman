@@ -21,7 +21,15 @@ class ComputerPlayer < Player
   end
 
   def validate_guess(guess)
-
+    guess_index = []
+    if self.target_word.include? guess
+      target_word.split('').each_with_index do |letter, index|
+        if letter == guess
+          guess_index << index
+        end
+      end
+    end
+    guess_index
   end
 
   def notify_opponent_of_target(size)
